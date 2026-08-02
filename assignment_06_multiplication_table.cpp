@@ -92,7 +92,7 @@ int main()
 {
     int number;
 
-    // --- Part A ---
+    
     cout << "Please enter a number for Part A: ";
     cin >> number;
 
@@ -101,7 +101,7 @@ int main()
 
     cout << endl;
 
-    // --- Part B ---
+    
     int limit;
     cout << "Please enter N for Part B (tables 1 to N): ";
     cin >> limit;
