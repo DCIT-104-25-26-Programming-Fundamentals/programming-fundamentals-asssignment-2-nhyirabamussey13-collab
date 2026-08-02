@@ -79,10 +79,15 @@
 #include <vector>
 #include <string>
 using namespace std;
-void displayMenu();
+#include <iostream>
+#include <vector>
+#include <string>
+using namespace std;
+
+void menu();
 void addTask(vector<string>& tasks);
-void viewTasks(const vector<string>& tasks);
-void deleteTask(vector<string>& tasks);
+void showTasks(const vector<string>& tasks);
+void removeTask(vector<string>& tasks);
 
 int main()
 {
@@ -99,32 +104,31 @@ int main()
 
     do
     {
-        displayMenu();
+        menu();
 
         cout << "Please select (1-4): ";
         cin >> choice;
         cin.ignore();
 
-        switch (choice)
+        if (choice == 1)
         {
-            case 1:
-                addTask(tasks);
-                break;
-
-            case 2:
-                viewTasks(tasks);
-                break;
-
-            case 3:
-                deleteTask(tasks);
-                break;
-
-            case 4:
-                cout << "Goodbye!" << endl;
-                break;
-
-            default:
-                cout << "Invalid choice. Please enter a number between 1 and 4." << endl;
+            addTask(tasks);
+        }
+        else if (choice == 2)
+        {
+            showTasks(tasks);
+        }
+        else if (choice == 3)
+        {
+            removeTask(tasks);
+        }
+        else if (choice == 4)
+        {
+            cout << "Goodbye!" << endl;
+        }
+        else
+        {
+            cout << "Invalid choice." << endl;
         }
 
     } while (choice != 4);
@@ -132,7 +136,7 @@ int main()
     return 0;
 }
 
-void displayMenu()
+void menu()
 {
     cout << endl;
     cout << "TO-DO LIST MENU" << endl;
@@ -154,9 +158,9 @@ void addTask(vector<string>& tasks)
     cout << "Task added: \"" << task << "\"" << endl;
 }
 
-void viewTasks(const vector<string>& tasks)
+void showTasks(const vector<string>& tasks)
 {
-    if (tasks.empty())
+    if (tasks.size() == 0)
     {
         cout << "You have no tasks." << endl;
     }
@@ -171,31 +175,28 @@ void viewTasks(const vector<string>& tasks)
     }
 }
 
-void deleteTask(vector<string>& tasks)
+void removeTask(vector<string>& tasks)
 {
-    if (tasks.empty())
+    if (tasks.size() == 0)
     {
         cout << "You have no tasks to delete." << endl;
         return;
     }
 
-    viewTasks(tasks);
+    showTasks(tasks);
 
-    int taskNumber;
-
+    int number;
     cout << "Enter task number to delete: ";
-    cin >> taskNumber;
+    cin >> number;
     cin.ignore();
 
-    if (taskNumber < 1 || taskNumber > tasks.size())
+    if (number >= 1 && number <= tasks.size())
     {
-        cout << "Invalid task number." << endl;
+        cout << "Task \"" << tasks[number - 1] << "\" has been removed." << endl;
+        tasks.erase(tasks.begin() + number - 1);
     }
     else
     {
-        cout << "Task \"" << tasks[taskNumber - 1] << "\" has been removed." << endl;
-
-        tasks.erase(tasks.begin() + taskNumber - 1);
+        cout << "Invalid task number." << endl;
     }
 }
-
