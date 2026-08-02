@@ -68,8 +68,150 @@
 // YOUR CODE BELOW — remove the // symbols from the scaffold and fill it in
 // =============================================================================
 
+
 #include <iostream>
 #include <iomanip>
 #include <cmath>
 using namespace std;
+
+double addNumbers(double x, double y)
+{
+    return x + y;
+}
+
+double subtractNumbers(double x, double y)
+{
+    return x - y;
+}
+
+double multiplyNumbers(double x, double y)
+{
+    return x * y;
+}
+
+double divideNumbers(double x, double y)
+{
+    return x / y;
+}
+
+int findModulus(int x, int y)
+{
+    return x % y;
+}
+
+double calculatePower(double base, int power)
+{
+    double result = 1;
+
+    for(int i = 0; i < power; i++)
+    {
+        result = result * base;
+    }
+
+    return result;
+}
+
+void displayMenu()
+{
+    cout << "\n--- SIMPLE CALCULATOR ---\n";
+    cout << "1. Addition\n";
+    cout << "2. Subtraction\n";
+    cout << "3. Multiplication\n";
+    cout << "4. Division\n";
+    cout << "5. Modulus\n";
+    cout << "6. Exponentiation\n";
+    cout << "7. Quit\n";
+    cout << "Select an operation (1-7): ";
+}
+
+int main()
+{
+    int option;
+    double numberOne;
+    double numberTwo;
+
+    do
+    {
+        displayMenu();
+        cin >> option;
+
+        if(option == 7)
+        {
+            cout << "Goodbye!\n";
+            break;
+        }
+
+        if(option < 1 || option > 7)
+        {
+            cout << "Invalid option. Please choose between 1 and 7.\n";
+            continue;
+        }
+
+        cout << "Enter first number: ";
+        cin >> numberOne;
+
+        cout << "Enter second number: ";
+        cin >> numberTwo;
+
+        cout << fixed << setprecision(2);
+
+        switch(option)
+        {
+            case 1:
+                cout << "Result: " << numberOne << " + "
+                     << numberTwo << " = "
+                     << addNumbers(numberOne, numberTwo) << endl;
+                break;
+
+            case 2:
+                cout << "Result: " << numberOne << " - "
+                     << numberTwo << " = "
+                     << subtractNumbers(numberOne, numberTwo) << endl;
+                break;
+
+            case 3:
+                cout << "Result: " << numberOne << " * "
+                     << numberTwo << " = "
+                     << multiplyNumbers(numberOne, numberTwo) << endl;
+                break;
+
+            case 4:
+                if(numberTwo == 0)
+                {
+                    cout << "Error: Cannot divide by zero.\n";
+                }
+                else
+                {
+                    cout << "Result: " << numberOne << " / "
+                         << numberTwo << " = "
+                         << divideNumbers(numberOne, numberTwo) << endl;
+                }
+                break;
+
+            case 5:
+                if((int)numberTwo == 0)
+                {
+                    cout << "Error: Cannot use zero as modulus.\n";
+                }
+                else
+                {
+                    cout << "Result: " << (int)numberOne << " % "
+                         << (int)numberTwo << " = "
+                         << findModulus((int)numberOne, (int)numberTwo)
+                         << endl;
+                }
+                break;
+
+            case 6:
+                cout << "Result: " << numberOne << " ^ "
+                     << (int)numberTwo << " = "
+                     << calculatePower(numberOne, (int)numberTwo)
+                     << endl;
+                break;
+        }
+
+    } while(option != 7);
+
+    return 0;
+}
 
