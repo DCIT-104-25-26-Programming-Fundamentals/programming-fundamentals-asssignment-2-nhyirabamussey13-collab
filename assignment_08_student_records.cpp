@@ -83,3 +83,176 @@
 #include <iomanip>
 using namespace std;
 
+struct Student
+{
+    string fullName;
+    int studentNumber;
+    vector<double> marks;
+};
+
+void enterNewStudent(vector<Student>& records)
+{
+    Student temp;
+    int numberOfMarks;
+
+    cout << "Enter student's name: ";
+    cin.ignore(1000, '\n');
+    getline(cin, temp.fullName);
+
+    cout << "Enter student's ID number: ";
+    cin >> temp.studentNumber;
+
+    cout << "Number of scores to enter: ";
+    cin >> numberOfMarks;
+
+    while(numberOfMarks <= 0)
+    {
+        cout << "Please enter at least one score: ";
+        cin >> numberOfMarks;
+    }
+
+    for(int count = 0; count < numberOfMarks; count++)
+    {
+        double markValue;
+
+        cout << "Score " << count + 1 << ": ";
+        cin >> markValue;
+
+        temp.marks.push_back(markValue);
+    }
+
+    records.push_back(temp);
+
+    cout << temp.fullName << " has been added to the records.\n";
+}
+
+void showStudentRecords(const vector<Student>& records)
+{
+    if(records.empty())
+    {
+        cout << "There are currently no student records.\n";
+        return;
+    }
+
+    cout << "\nStudent Records\n";
+    cout << "============================\n";
+
+    for(int i = 0; i < records.size(); i++)
+    {
+        double sum = 0;
+
+        cout << "Name: " << records[i].fullName << endl;
+        cout << "ID: " << records[i].studentNumber << endl;
+
+        cout << "Scores: ";
+
+        for(int j = 0; j < records[i].marks.size(); j++)
+        {
+            cout << records[i].marks[j] << " ";
+            sum += records[i].marks[j];
+        }
+
+        double average = sum / records[i].marks.size();
+
+        cout << endl;
+        cout << "Average: "
+             << fixed << setprecision(2)
+             << average << endl;
+
+        cout << "----------------------------\n";
+    }
+}
+
+void findStudentAverage(const vector<Student>& records)
+{
+    int searchID;
+    bool studentFound = false;
+
+    cout << "Enter student ID to check average: ";
+    cin >> searchID;
+
+    for(int i = 0; i < records.size(); i++)
+    {
+        if(records[i].studentNumber == searchID)
+        {
+            double totalMarks = 0;
+
+            for(int j = 0; j < records[i].marks.size(); j++)
+            {
+                totalMarks += records[i].marks[j];
+            }
+
+            double finalAverage = totalMarks / records[i].marks.size();
+
+            cout << records[i].fullName
+                 << "'s average is "
+                 << fixed << setprecision(2)
+                 << finalAverage << endl;
+
+            studentFound = true;
+            break;
+        }
+    }
+
+    if(studentFound == false)
+    {
+        cout << "No student with that ID was found.\n";
+    }
+}
+
+int main()
+{
+    vector<Student> studentRecords;
+
+    Student firstStudent;
+    firstStudent.fullName = "Kojo Mensah";
+    firstStudent.studentNumber = 22349876;
+    firstStudent.marks = {78, 85, 90};
+
+    Student secondStudent;
+    secondStudent.fullName = "Ama Owusu";
+    secondStudent.studentNumber = 22345678;
+    secondStudent.marks = {65, 70, 88};
+
+    studentRecords.push_back(firstStudent);
+    studentRecords.push_back(secondStudent);
+
+    int option;
+
+    while(true)
+    {
+        cout << "\n******** STUDENT RECORD MENU ********\n";
+        cout << "1 - Add a student\n";
+        cout << "2 - View student records\n";
+        cout << "3 - Search average score\n";
+        cout << "4 - Exit program\n";
+        cout << "Choose an option: ";
+
+        cin >> option;
+
+        switch(option)
+        {
+            case 1:
+                enterNewStudent(studentRecords);
+                break;
+
+            case 2:
+                showStudentRecords(studentRecords);
+                break;
+
+            case 3:
+                findStudentAverage(studentRecords);
+                break;
+
+            case 4:
+                cout << "Closing student record system.\n";
+                return 0;
+
+            default:
+                cout << "Please enter a valid option.\n";
+        }
+    }
+
+    return 0;
+}
+
