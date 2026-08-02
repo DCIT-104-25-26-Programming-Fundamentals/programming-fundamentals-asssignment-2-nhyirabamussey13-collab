@@ -42,3 +42,57 @@
 #include <iostream>
 using namespace std;
 
+int findsum(int thing[], int number) {
+    int sum = 0;
+    for (int integer = 0; integer < number; integer++) {
+        sum = sum + thing[integer];
+    }
+    return sum;
+}
+
+double average(int sum, int integer) {
+    return (double)sum / integer;
+}
+
+double Max(int thing[], int number) {
+    double maximum = thing[0];
+    for (int integer = 1; integer < number; integer++) {
+        if (thing[integer] > maximum)
+            maximum = thing[integer];
+    }
+    return maximum;
+}
+
+double min(int thing[], int number) {
+    double minimum = thing[0];
+    for (int integer = 1; integer < number; integer++) {
+        if (thing[integer] < minimum)
+            minimum = thing[integer];
+    }
+    return minimum;
+}
+
+int main() {
+    int number;
+    std::cout << "How many numbers? ";
+    std::cin >> number;
+
+    if (number <= 0) {
+        std::cout << "Error: Number of values must be positive.";
+        return 0;
+    }
+
+    int thing[number];
+    for (int integer = 0; integer < number; integer++) {
+        std::cout << "Enter number " << integer + 1 << ": ";
+        std::cin >> thing[integer];
+    }
+
+    std::cout << "\nResults:" << std::endl;
+    std::cout << "Sum: " << findsum(thing, number) << std::endl;
+    std::cout << "Average: " << average(findsum(thing, number), number) << std::endl;
+    std::cout << "Maximum: " << Max(thing, number) << std::endl;
+    std::cout << "Minimum: " << min(thing, number) << std::endl;
+
+    return 0;
+}
